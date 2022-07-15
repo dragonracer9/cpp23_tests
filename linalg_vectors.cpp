@@ -5,20 +5,20 @@
 #include <cstdarg>
 #include <concepts>
 
-template<typename T>
+template <typename T>
 concept Numeric = std::is_integral_v<T> or std::is_floating_point_v<T>;
 
 namespace mat
-{   
+{
     // i trust these will only be used on numbers so i aint gonna sacrifice speed for security right? although probs would be better
     // actually maybe it rlly would be better
     // yk im too lazy, i wont
     // but as info, i rlly should
-    template <Numeric T> 
+    template <Numeric T>
     inline constexpr auto [[nodiscard]] sq(T x) { return x * x; }
     template <Numeric T>
     inline constexpr auto [[nodiscard]] cu(T x) { return sq(x) * x; }
-    template <Numeric T>  
+    template <Numeric T>
     inline constexpr auto [[nodiscard]] sign(T x) { return ((x) > 0) - ((x) < 0); }
 
     template <Numeric T, Numeric N>
@@ -36,14 +36,14 @@ namespace mat
 
 namespace lalg
 {
-    template <typename T> requires std::integral<T> or std::floating_point<T>
+    template <typename T>
+    requires std::integral<T> or std::floating_point<T>
     class vector
     {
     public:
-        constexpr vector(/* T l, T r */ std::initializer_list<T> l) noexcept : v(l /* {l, r} */)
-        {
-            //static_assert((std::is_integral<T>::value or std::is_floating_point<T>::value), "integer or float required");
-        };
+        constexpr vector(/* T l, T r */ std::initializer_list<T> l) noexcept : v(l /* {l, r} */){
+                                                                                   // static_assert((std::is_integral<T>::value or std::is_floating_point<T>::value), "integer or float required");
+                                                                               };
         constexpr vector(vector &&) = default;
         constexpr vector(const vector &) = default;
         constexpr vector &operator=(vector &&) = default; // imma be honest idk if this is a good idea lol
@@ -100,11 +100,14 @@ int main(int argc, char const *argv[])
 
     std::optional x{mat::maybe_div(10.0, 9)}; // compile time calculation
 
-    //std::cout << mat::avg<double>(1, 3) << std::endl; // for clarification, this was a test of the ellipsis operator ... for function arguments. the fn has since been removed 
+    // std::cout << mat::avg<double>(1, 3) << std::endl; // for clarification, this was a test of the ellipsis operator ... for function arguments. the fn has since been removed
 
     if (x)
+    {
         std::cout << x.value() << std::endl;
-    else
+        std::cout << mat::sq(x.value()) << std::endl;
+        std::cout << mat::cu(x.value()) << std::endl;
+    } else
         std::cout << "div by 0" << std::endl;
 
     // vector<int*> p_v {nullptr, nullptr}; // should fail the static assert and not compile
