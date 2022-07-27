@@ -115,7 +115,7 @@ int main(int argc, char const *argv[])
 
     // std::cout << mat::avg<double>(1, 3) << std::endl; // for clarification, this was a test of the ellipsis operator ... for function arguments. the fn has since been removed
 
-    if (x)
+    if (x) // a rust match statement is really quite superior
     {
         std::cout << x.value() << std::endl;
         std::cout << mat::sq(x.value()) << std::endl;
