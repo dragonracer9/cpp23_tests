@@ -15,11 +15,17 @@ namespace mat
     // yk im too lazy, i wont
     // but as info, i rlly should
     template <Numeric T>
-    inline constexpr auto [[nodiscard]] sq(T x) { return x * x; }
+    /**
+     * @brief squares input; reuqires numeric type
+     *
+     * @param x
+     * @return constexpr auto
+     */
+    inline constexpr auto [[nodiscard]] sq(T x) -> T { return x * x; }
     template <Numeric T>
-    inline constexpr auto [[nodiscard]] cu(T x) { return sq(x) * x; }
+    inline constexpr auto [[nodiscard]] cu(T x) -> T { return sq(x) * x; }
     template <Numeric T>
-    inline constexpr auto [[nodiscard]] sign(T x) { return ((x) > 0) - ((x) < 0); }
+    inline constexpr auto [[nodiscard]] sign(T x) -> T { return ((x) > 0) - ((x) < 0); }
 
     template <Numeric T, Numeric N>
     constexpr auto maybe_div(T x, N y)
@@ -28,9 +34,14 @@ namespace mat
             return std::optional<T>{x / y};
         return std::optional<T>{};
     }
-
     constexpr auto PI = 3.1415926535897932384626433832795;
+
     constexpr auto C = 0.5519150244935105707435627; // close enough
+
+    // functional-style return
+    auto hello() -> void {
+        std::cout << "hello\n" << std::flush;
+    }
 
 } // namespace mat
 
@@ -38,6 +49,12 @@ namespace lalg
 {
     template <typename T>
     requires std::integral<T> or std::floating_point<T>
+    /**
+     * @brief a tiny class to test out some new features. i am aware that these features may have been around for a while, but to me they're new
+     * I also know that using an std::vector for the lalg::vector-s is not the most efficient way to store stuff, but when i wrote that bit i wanted to support higher-dimensional
+     * vectors, so it needed to scale to whatever size i wanted
+     * 
+     */
     class vector
     {
     public:
@@ -107,10 +124,13 @@ int main(int argc, char const *argv[])
         std::cout << x.value() << std::endl;
         std::cout << mat::sq(x.value()) << std::endl;
         std::cout << mat::cu(x.value()) << std::endl;
-    } else
+    }
+    else
         std::cout << "div by 0" << std::endl;
 
     // vector<int*> p_v {nullptr, nullptr}; // should fail the static assert and not compile
+
+    std::cout << mat::cu('e') << std::endl;
 
     std::cout << mat::sq(100) << std::endl; // compile time calculation
 
