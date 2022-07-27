@@ -10,10 +10,6 @@ concept Numeric = std::is_integral_v<T> or std::is_floating_point_v<T>;
 
 namespace mat
 {
-    // i trust these will only be used on numbers so i aint gonna sacrifice speed for security right? although probs would be better
-    // actually maybe it rlly would be better
-    // yk im too lazy, i wont
-    // but as info, i rlly should
     template <Numeric T>
     /**
      * @brief squares input; reuqires numeric type
