@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ranges>
 #include <chrono>
 #include <string_view>
 #include <algorithm>
@@ -31,6 +32,39 @@ inline auto out_const_size() -> void
     }
 }
 
+inline auto out_ranges() -> void
+{
+    namespace views = std::ranges::views;
+    for (auto len : views::iota(1) |
+                        views::take(5) |
+                        views::reverse)
+    {
+        for (auto num : views::iota(1) | views::take(len))
+        {
+            std::cout << num << " ";
+        }
+        std::cout << '\n';
+    }
+}
+
+inline auto out_ranges_without_for() -> void
+{
+    namespace views = std::ranges::views;
+    std::ranges::for_each(  views::iota(1) |
+                            views::take(5) |
+                            views::reverse,
+                          [](int len)
+                          {
+                              std::ranges::for_each(views::iota(1) |
+                                                    views::take(len),
+                                                    [](int num)
+                                                    {
+                                                        std::cout << num << " ";
+                                                    });
+                              std::cout << '\n';
+                          });
+}
+
 auto main(int argc, char const *argv[]) -> int
 {
     auto start = std::chrono::high_resolution_clock::now();
@@ -51,5 +85,16 @@ auto main(int argc, char const *argv[]) -> int
     time = duration_cast<std::chrono::microseconds>(end - start);
     std::cout << "Time taken (out_const_size): " << time.count() << " microseconds" << std::endl;
 
+    start = std::chrono::high_resolution_clock::now();
+    out_ranges();
+    end = std::chrono::high_resolution_clock::now();
+    time = duration_cast<std::chrono::microseconds>(end - start);
+    std::cout << "Time taken (out_ranges): " << time.count() << " microseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    out_ranges_without_for();
+    end = std::chrono::high_resolution_clock::now();
+    time = duration_cast<std::chrono::microseconds>(end - start);
+    std::cout << "Time taken (out_ranges_without_for): " << time.count() << " microseconds" << std::endl;
     return 0;
 }
