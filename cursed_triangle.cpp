@@ -83,7 +83,7 @@ auto main(int argc, char const *argv[]) -> int
     out();
     end = std::chrono::high_resolution_clock::now();
     time = duration_cast<std::chrono::microseconds>(end - start);
-    std::cout << "Time taken (original): " << time.count() << " microseconds" << std::endl; // turns out this is faster (by like 500 microseconds)
+    std::cout << "Time taken (original): " << time.count() << " microseconds" << std::endl; // turns out this is faster (by like 500 microseconds) CONTEXT: faster than the constexpr fn
 
     start = std::chrono::high_resolution_clock::now();
     out_const_size();
