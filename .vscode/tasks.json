@@ -10,7 +10,8 @@
                 "-std=c++23",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-O2"
             ],
             "options": {
                 "cwd": "C:\\msys64\\mingw64\\bin"
