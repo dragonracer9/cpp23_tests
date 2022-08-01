@@ -50,13 +50,13 @@ inline auto out_ranges() -> void
 inline auto out_ranges_without_for() -> void
 {
     namespace views = std::ranges::views;
-    std::ranges::for_each(  views::iota(1) |
-                            views::take(5) |
-                            views::reverse,
+    std::ranges::for_each(views::iota(1) |
+                              views::take(5) |
+                              views::reverse,
                           [](int len)
                           {
                               std::ranges::for_each(views::iota(1) |
-                                                    views::take(len),
+                                                        views::take(len),
                                                     [](int num)
                                                     {
                                                         std::cout << num << " ";
@@ -68,9 +68,15 @@ inline auto out_ranges_without_for() -> void
 auto main(int argc, char const *argv[]) -> int
 {
     auto start = std::chrono::high_resolution_clock::now();
-    constexpr_out();
+    printf("1 2 3 4 5\n1 2 3 4\n1 2 3\n1 2\n1\n");
     auto end = std::chrono::high_resolution_clock::now();
     auto time = duration_cast<std::chrono::microseconds>(end - start);
+    std::cout << "Time taken (simple): " << time.count() << " microseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    constexpr_out();
+    end = std::chrono::high_resolution_clock::now();
+    time = duration_cast<std::chrono::microseconds>(end - start);
     std::cout << "Time taken (const): " << time.count() << " microseconds" << std::endl;
 
     start = std::chrono::high_resolution_clock::now();
