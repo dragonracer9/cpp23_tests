@@ -20,11 +20,11 @@ int main(int argc, const char **argv)
 {
     vec vals{};
     read_input(vals);
-    const lis seq{find_seq(vals)};
+    const lis SEQ{find_seq(vals)};
 
-    if (seq)
+    if (SEQ)
     {
-        for (int i{seq.index}; i < seq.index + seq.length; ++i)
+        for (int i{SEQ.index}; i < SEQ.index + SEQ.length; ++i)
         {
             std::cout << vals.at(i) << ' ';
         }
@@ -38,16 +38,14 @@ void read_input(vec &input)
     int in{};
     while (std::cin >> in)
     {
-        if (in < 0)
-            break;
+        if (in < 0) break;
         input.push_back(in);
     }
 }
 
 [[nodiscard]] lis find_seq(const vec &input)
 {
-    if (input.size() == 0)
-        return lis{0, 0, false};
+    if (input.size() == 0) return lis{0, 0, false};
     else
     {
         int index{}, length{}, largest_length{}, mark_first{};
