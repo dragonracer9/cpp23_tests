@@ -8,10 +8,7 @@ struct longest_increasing_subsequence
     int index;
     int length;
     bool value;
-    operator bool() const
-    {
-        return value;
-    }
+    operator bool() const { return value; }
 };
 
 using lis = longest_increasing_subsequence;
@@ -31,9 +28,7 @@ int main(int argc, const char **argv)
         {
             std::cout << vals.at(i) << ' ';
         }
-    }
-    else
-        std::cout << "empty" << std::endl;
+    } else std::cout << "empty" << std::endl;
 
     return 0;
 }
@@ -66,6 +61,7 @@ void read_input(vec &input)
             }
             mark_first = current_index;
         }
-        return lis{index, length, true};
+        std::cout << index << ' ' << length << '\n';
+        return lis{index, largest_length, true};
     }
 }
