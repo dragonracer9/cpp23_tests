@@ -33,6 +33,11 @@ int main(int argc, const char **argv)
     return 0;
 }
 
+/**
+ * @brief reads vector from std::cin
+ * 
+ * @param input vector<int> &
+ */
 void read_input(vec &input)
 {
     int in{};
@@ -43,6 +48,12 @@ void read_input(vec &input)
     }
 }
 
+/**
+ * @brief finds largest strictly increasing sequence in a vector of integers
+ * 
+ * @param input const vector<int> &
+ * @return lis (largest_increasing_sequence)
+ */
 [[nodiscard]] lis find_seq(const vec &input)
 {
     if (input.size() == 0) return lis{0, 0, false};
@@ -59,7 +70,7 @@ void read_input(vec &input)
             }
             mark_first = current_index;
         }
-        std::cout << index << ' ' << length << '\n';
+        // std::cout << index << ' ' << length << '\n';
         return lis{index, largest_length, true};
     }
 }
